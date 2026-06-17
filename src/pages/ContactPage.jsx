@@ -7,9 +7,58 @@ export default function ContactPage() {
   const [errorMsg, setErrorMsg] = useState('');
   const [success, setSuccess] = useState('');
 
+  const formatPhone = (value) => {
+    // Strip everything except digits
+    let digits = value.replace(/\D/g, '');
+
+    // Normalize: if starts with 7, prepend +
+    if (digits.startsWith('77') || digits.startsWith('71') || digits.startsWith('70')) {
+      digits = digits;
+    } else if (digits.startsWith('7')) {
+      digits = digits;
+    } else if (digits.startsWith('8')) {
+      // keep as is
+    } else {
+      digits = digits;
+    }
+
+    // Format: 7XXXXXXXXXX -> +7 (7XX) XXX-XX-XX
+    if (digits.startsWith('7') && digits.length <= 11) {
+      let d = digits;
+      let result = '+';
+      if (d.length >= 1) result += d[0];
+      if (d.length >= 2) result += ' (' + d.slice(1, 4);
+      if (d.length >= 4) result += '';
+      if (d.length >= 4 && d.length < 7) result = '+' + d[0] + ' (' + d.slice(1,4) + ') ' + d.slice(4);
+      if (d.length >= 7) result = '+' + d[0] + ' (' + d.slice(1,4) + ') ' + d.slice(4,7) + '-' + d.slice(7,9);
+      if (d.length >= 9) result = '+' + d[0] + ' (' + d.slice(1,4) + ') ' + d.slice(4,7) + '-' + d.slice(7,9) + '-' + d.slice(9,11);
+      return result;
+    }
+    
+    // Format: 8XXXXXXXXXX -> 8 (7XX) XXX-XX-XX
+    if (digits.startsWith('8') && digits.length <= 11) {
+      let d = digits;
+      let result = d[0];
+      if (d.length >= 2) result += ' (' + d.slice(1,4);
+      if (d.length >= 4) result += ')';
+      if (d.length >= 5) result = d[0] + ' (' + d.slice(1,4) + ') ' + d.slice(4,7);
+      if (d.length >= 7) result = d[0] + ' (' + d.slice(1,4) + ') ' + d.slice(4,7) + '-' + d.slice(7,9);
+      if (d.length >= 9) result = d[0] + ' (' + d.slice(1,4) + ') ' + d.slice(4,7) + '-' + d.slice(7,9) + '-' + d.slice(9,11);
+      return result;
+    }
+
+    return value;
+  };
+
+  const handlePhoneChange = (e) => {
+    const formatted = formatPhone(e.target.value);
+    setFormData({ ...formData, phone: formatted });
+  };
+
   const validatePhone = (phone) => {
-    const cleanPhone = phone.replace(/[\s-()]/g, '');
-    const regex = /^(\+7|8)\d{10}$/;
+    const cleanPhone = phone.replace(/\D/g, '');
+    // Accept 11 digits starting with 7 or 8
+    const regex = /^(7|8)\d{10}$/;
     return regex.test(cleanPhone) ? cleanPhone : null;
   };
 
@@ -193,17 +242,22 @@ export default function ContactPage() {
                 
                 <div>
                   <label className="form-label fw-bold text-dark small text-uppercase tracking-wider">Телефон Нөмірі</label>
-                  <div className="input-group">
-                    <span className="input-group-text border-0 bg-light px-4"><i className="fa-solid fa-phone text-muted"></i></span>
+                  <div className="input-group" style={{ borderRadius: '12px', overflow: 'hidden', border: '2px solid #e9ecef', transition: 'border-color 0.2s ease' }}
+                    onFocus={e => e.currentTarget.style.borderColor = '#0b58ca'}
+                    onBlur={e => e.currentTarget.style.borderColor = '#e9ecef'}
+                  >
+                    <span className="input-group-text border-0 bg-light px-4" style={{ fontSize: '18px' }}>📞</span>
                     <input 
-                      type="text" 
+                      type="tel" 
                       className="form-control form-control-lg bg-light border-0 shadow-none py-3 fs-6" 
+                      style={{ outline: 'none', boxShadow: 'none' }}
                       placeholder="+7 (7XX) XXX-XX-XX" 
                       value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      onChange={handlePhoneChange}
+                      maxLength={18}
                     />
                   </div>
-                  <div className="form-text mt-2 opacity-75">Міндетті: +7 немесе 8-ден басталатын 11 сан.</div>
+                  <div className="form-text mt-2" style={{ color: '#6c757d', fontSize: '13px' }}>+7 немесе 8-ден басталатын 11 сан (мысалы: +7 (701) 234-56-78)</div>
                 </div>
 
                 <div>
