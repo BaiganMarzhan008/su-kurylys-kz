@@ -1,3 +1,5 @@
+import { createClient } from '@supabase/supabase-js';
+
 export default async function handler(req, res) {
   try {
     if (req.method !== 'POST') {
@@ -25,7 +27,37 @@ export default async function handler(req, res) {
       });
     }
 
-    // Process submission...
+    // Check for Supabase environment variables
+    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
+      console.error("Missing Supabase environment variables.");
+      return res.status(500).json({
+        success: false,
+        message: "Серверде дерекқор конфигурациясы (Environment Variables) орнатылмаған."
+      });
+    }
+
+    // Initialize Supabase client
+    const supabase = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_ANON_KEY
+    );
+
+    // Insert into Supabase table 'applications'
+    const { error } = await supabase
+      .from('applications')
+      .insert([
+        {
+          name: name,
+          phone: cleanPhone,
+          message: message
+        }
+      ]);
+
+    if (error) {
+      console.error('Supabase Insertion Error:', error);
+      throw new Error(error.message);
+    }
+
     return res.status(200).json({ 
       success: true, 
       message: "Өтінім сәтті қабылданды!" 
