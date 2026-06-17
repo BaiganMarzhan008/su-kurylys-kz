@@ -10,58 +10,40 @@ const Header = () => {
   } = useContext(AccessibilityContext);
 
   return (
-    <header>
-      {/* Accessibility Bar */}
-      <div className="bg-dark text-white py-1">
-        <div className="container d-flex justify-content-end align-items-center gap-2 flex-wrap" style={{fontSize: '0.85rem'}}>
-          <span className="d-none d-sm-inline">Нашар көретіндерге арналған нұсқа:</span>
-          <button 
-            className={`btn btn-sm ${isHighContrast ? 'btn-light' : 'btn-outline-light'}`}
-            onClick={() => setIsHighContrast(!isHighContrast)}
-            title="Контрастты режим"
-          >
-            <i className="fa-solid fa-circle-half-stroke"></i>
-          </button>
-          <button 
-            className={`btn btn-sm ${isLargeFont ? 'btn-light' : 'btn-outline-light'}`}
-            onClick={() => setIsLargeFont(!isLargeFont)}
-            title="Қаріпті үлкейту"
-          >
-            <i className="fa-solid fa-font"></i>+
-          </button>
-          <button 
-            className={`btn btn-sm ${hideImages ? 'btn-light' : 'btn-outline-light'}`}
-            onClick={() => setHideImages(!hideImages)}
-            title="Суреттерді жасыру"
-          >
-            <i className="fa-solid fa-image-slash"></i>
-          </button>
-        </div>
-      </div>
-
-      {/* Main Navbar */}
-      <nav className="navbar navbar-expand-lg sticky-top bg-white shadow-sm py-3">
+    <header className="sticky-top">
+      {/* Main Navbar - Dark Slate */}
+      <nav className="navbar navbar-expand-lg bg-slate-dark navbar-dark py-3 shadow-sm">
         <div className="container">
-          <Link className="navbar-brand d-flex align-items-center fw-bold fs-4 text-primary" to="/">
-            <i className="fa-solid fa-droplet me-2"></i> СУ ҚҰРЫЛЫС <span className="text-dark ms-1">KZ</span>
+          <Link className="navbar-brand text-decoration-none" to="/">
+            <div className="d-flex align-items-center">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="me-2">
+                {/* Geometric Grid / Pipes */}
+                <path d="M8 25h24 M12 32h16 M15 10v25 M25 10v25" stroke="#1E293B" strokeWidth="2" strokeOpacity="0.6" strokeLinecap="round" strokeDasharray="4 4" />
+                {/* Clean Droplet */}
+                <path d="M20 4 C20 4 8 16 8 26 C8 32.627 13.373 38 20 38 C26.627 38 32 32.627 32 26 C32 16 20 4 20 4 Z" fill="#0066FF" fillOpacity="0.9" />
+                {/* Inner geometric accent */}
+                <path d="M16 24 L20 20 L24 24" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M20 20 L20 30" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
+              <span className="fw-bold fs-4 text-white" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                СУ ҚҰРЫЛЫС <span style={{ color: '#0066FF' }}>KZ</span>
+              </span>
+            </div>
           </Link>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+          <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarContent">
-            <ul className="navbar-nav mx-auto gap-1">
-              <li className="nav-item"><NavLink className={({isActive}) => `nav-link fw-medium ${isActive ? 'text-primary fw-bold' : ''}`} to="/">Басты бет</NavLink></li>
-              <li className="nav-item"><NavLink className={({isActive}) => `nav-link fw-medium ${isActive ? 'text-primary fw-bold' : ''}`} to="/about">Біз туралы</NavLink></li>
-              <li className="nav-item"><NavLink className={({isActive}) => `nav-link fw-medium ${isActive ? 'text-primary fw-bold' : ''}`} to="/services">Қызметтер</NavLink></li>
-              <li className="nav-item"><NavLink className={({isActive}) => `nav-link fw-medium ${isActive ? 'text-primary fw-bold' : ''}`} to="/projects">Жобалар</NavLink></li>
-              <li className="nav-item"><NavLink className={({isActive}) => `nav-link fw-medium ${isActive ? 'text-primary fw-bold' : ''}`} to="/news">Жаңалықтар</NavLink></li>
+            <ul className="navbar-nav mx-auto gap-2">
+              <li className="nav-item"><NavLink className={({isActive}) => `nav-link px-3 rounded ${isActive ? 'text-white bg-primary bg-opacity-10' : 'text-slate-light'}`} to="/">Басты бет</NavLink></li>
+              <li className="nav-item"><NavLink className={({isActive}) => `nav-link px-3 rounded ${isActive ? 'text-white bg-primary bg-opacity-10' : 'text-slate-light'}`} to="/about">Біз туралы</NavLink></li>
+              <li className="nav-item"><NavLink className={({isActive}) => `nav-link px-3 rounded ${isActive ? 'text-white bg-primary bg-opacity-10' : 'text-slate-light'}`} to="/services">Қызметтер</NavLink></li>
+              <li className="nav-item"><NavLink className={({isActive}) => `nav-link px-3 rounded ${isActive ? 'text-white bg-primary bg-opacity-10' : 'text-slate-light'}`} to="/projects">Жобалар</NavLink></li>
+              <li className="nav-item"><NavLink className={({isActive}) => `nav-link px-3 rounded ${isActive ? 'text-white bg-primary bg-opacity-10' : 'text-slate-light'}`} to="/news">Жаңалықтар</NavLink></li>
             </ul>
-            <div className="d-flex align-items-center gap-2 mt-3 mt-lg-0">
-              <Link to="/contact" className="btn btn-primary fw-bold rounded-pill px-4 btn-animate shadow-sm">
+            <div className="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+              <Link to="/contact" className="btn btn-primary fw-bold rounded px-4 py-2 btn-animate text-uppercase" style={{fontSize: '0.9rem', letterSpacing: '0.5px'}}>
                 Өтінім қалдыру
-              </Link>
-              <Link to="/admin" className="btn btn-outline-secondary rounded-circle" title="Әкімші тақтасы" style={{width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <i className="fa-solid fa-lock"></i>
               </Link>
             </div>
           </div>

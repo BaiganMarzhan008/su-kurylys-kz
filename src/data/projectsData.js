@@ -5,7 +5,7 @@ export const projectsData = [
     title: '«Қабанбай батыр» даңғылындағы магистральді су құбыры',
     location: 'Астана қ., Есіл ауданы',
     description: 'Жаңа тұрғын үй кешендерін таза сумен қамтамасыз ету мақсатында ұзындығы 12 км болатын жоғары қысымды HDPE су құбырын орнату. Жоба 4 ай ішінде сәтті тапсырылды.',
-    img: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=800&q=80'
+    img: 'https://images.unsplash.com/photo-1581094288338-2314dddb7eed?q=80&w=800'
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ export const projectsData = [
     title: '«Нұрлы Жол» вокзалы маңындағы кәріз жүйесі',
     location: 'Астана қ., Алматы ауданы',
     description: 'Вокзал аумағы мен жақын орналасқан бизнес орталықтардың сарқынды суларын шығаруға арналған 8 шақырымдық орталықтандырылған кәріз желісінің құрылысы.',
-    img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80'
+    img: 'https://images.unsplash.com/photo-1590069261209-f8e9b8642343?q=80&w=800'
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ export const projectsData = [
     title: 'ТЭЦ-3 резервтік сумен жабдықтау станциясы',
     location: 'Астана қ., Байқоңыр ауданы',
     description: 'Жылу электр орталығын техникалық сумен үздіксіз қамтамасыз ету үшін заманауи сорғы станциясы мен диаметрі 1200 мм болат құбырлар желісі тартылды.',
-    img: 'https://images.unsplash.com/photo-1584466977773-e625c37cdd50?auto=format&fit=crop&w=800&q=80'
+    img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800'
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ export const projectsData = [
     title: '«Green Quarter» ТҮК жауын-шашын дренажы',
     location: 'Астана қ., Нұра ауданы',
     description: 'Көктемгі су тасқыны мен нөсер кезінде көшелерді су басудың алдын алуға арналған көп деңгейлі дренаж және тазарту жүйесінің орнатылуы.',
-    img: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80'
+    img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800'
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ export const projectsData = [
     title: 'Индустриялық парктің ауыз су торабы',
     location: 'Астана қ., Алматы ауданы',
     description: 'АЭА «Астана – жаңа қала» индустриялық паркінің жаңа өндірістік нысандарын сумен қамтамасыз етуге арналған кешенді инженерлік желі.',
-    img: 'https://images.unsplash.com/photo-1617469165786-8007eda3caa7?auto=format&fit=crop&w=800&q=80'
+    img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800'
   },
   {
     id: 6,
@@ -45,6 +45,6 @@ export const projectsData = [
     title: 'Президенттік саябақтың су бұру жүйесін жаңғырту',
     location: 'Астана қ., Есіл ауданы',
     description: 'Ескі құбырларды толығымен жаңа полимерлі материалдармен ауыстыру және жер асты суларының деңгейін реттейтін станция құрылысы.',
-    img: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80'
+    img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800'
   }
 ];
