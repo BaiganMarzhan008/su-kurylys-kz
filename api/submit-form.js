@@ -27,8 +27,11 @@ export default async function handler(req, res) {
       });
     }
 
-    // Check for Supabase environment variables
-    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
+    // Check for Supabase environment variables (support VITE_ prefix as well)
+    const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+
+    if (!supabaseUrl || !supabaseKey) {
       console.error("Missing Supabase environment variables.");
       return res.status(500).json({
         success: false,
@@ -37,10 +40,7 @@ export default async function handler(req, res) {
     }
 
     // Initialize Supabase client
-    const supabase = createClient(
-      process.env.SUPABASE_URL,
-      process.env.SUPABASE_ANON_KEY
-    );
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Insert into Supabase table 'applications'
     const { error } = await supabase
