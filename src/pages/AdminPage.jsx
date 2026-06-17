@@ -19,6 +19,13 @@ export default function AdminPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
 
+  // ── useEffect міндетті түрде conditional return-дан БҰРЫН тұруы тиіс ──
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchApplications();
+    }
+  }, [isAuthenticated]); // isAuthenticated өзгергенде авто жүктейді
+
   const handleLogin = (e) => {
     e.preventDefault();
     setLoginLoading(true);
@@ -97,9 +104,7 @@ export default function AdminPage() {
     );
   }
 
-  useEffect(() => {
-    fetchApplications();
-  }, []);
+
 
   const fetchApplications = async () => {
     setIsLoading(true);
