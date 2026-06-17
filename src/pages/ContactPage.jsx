@@ -179,7 +179,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h6 className="text-uppercase text-primary fw-bold tracking-wider mb-1" style={{ fontSize: '12px' }}>Бас Кеңсе</h6>
-                      <p className="mb-0 fs-5 lh-sm opacity-90 fw-medium">Астана қаласы,<br/>Алматы ауданы</p>
+                      <p className="mb-0 fs-5 lh-sm opacity-90 fw-medium">Астана қаласы, Алматы ауданы,<br/>Тәуелсіздік даңғылы, 10</p>
                     </div>
                   </div>
 
@@ -294,7 +294,7 @@ export default function ContactPage() {
         <div className="container pb-4">
           <div className="text-center mb-4">
             <h3 className="fw-bolder text-dark">Біздің Орналасқан Жеріміз</h3>
-            <p className="text-muted">Астана қаласы, Алматы ауданы, әкімшілік орталығы</p>
+            <p className="text-muted">Астана қаласы, Алматы ауданы, Тәуелсіздік даңғылы, 10</p>
           </div>
           <div className="rounded-4 overflow-hidden shadow-lg border border-light map-wrapper-anim" style={{ height: '450px' }}>
             <iframe 
