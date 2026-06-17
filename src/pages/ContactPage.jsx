@@ -5,7 +5,7 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState('');
 
   const validatePhone = (phone) => {
     const cleanPhone = phone.replace(/[\s-()]/g, '');
@@ -16,7 +16,7 @@ export default function ContactPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
-    setSuccess(false);
+    setSuccess('');
     
     if (!formData.name.trim() || !formData.message.trim()) {
       setErrorMsg('Барлық өрістерді толтырыңыз.');
@@ -31,33 +31,43 @@ export default function ContactPage() {
 
     setLoading(true);
     try {
-      const newApp = {
+      const payload = {
         name: formData.name,
         phone: validPhone,
-        message: formData.message,
-        email: 'Көрсетілмеген',
-        date: new Date().toISOString()
+        message: formData.message
       };
       
-      // Attempt real Supabase insertion if configured
-      if (supabase && import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_URL !== 'https://placeholder.supabase.co') {
-        const { error } = await supabase.from('applications').insert([newApp]);
-        if (error) throw error;
-      } else {
-        // Fallback for local dev
-        const localData = JSON.parse(localStorage.getItem('applications')) || [];
-        newApp.id = Date.now();
-        localData.push(newApp);
-        localStorage.setItem('applications', JSON.stringify(localData));
+      // Connect frontend to the new Vercel API
+      const response = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      
+      const responseText = await response.text();
+      let data = {};
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.error('Failed to parse response as JSON. Status:', response.status, 'Text:', responseText);
       }
       
-      setSuccess(true);
+      if (!response.ok || !data.success) {
+        console.error('API Error Status:', response.status);
+        console.error('API Error Response:', data);
+        throw new Error(data.message || 'Жүйеде қате шықты. Кейінірек қайталаңыз.');
+      }
+      
+      setSuccess(data.message || "Өтінім сәтті қабылданды!");
       setFormData({ name: '', phone: '', message: '' });
-      setTimeout(() => setSuccess(false), 6000); // Hide toast after 6s
+      setTimeout(() => setSuccess(''), 6000); // Hide toast after 6s
       
     } catch (error) {
       console.error('Error submitting form:', error);
-      setErrorMsg('Жүйеде қате шықты. Кейінірек қайталаңыз немесе қоңырау шалыңыз.');
+      setErrorMsg(error.message || 'Жүйеде қате шықты. Кейінірек қайталаңыз немесе қоңырау шалыңыз.');
     } finally {
       setLoading(false);
     }
@@ -75,9 +85,9 @@ export default function ContactPage() {
             </div>
             <h3 className="fw-bolder text-dark mb-3">Өтінім қабылданды!</h3>
             <p className="text-muted fs-5 lh-lg mb-4">
-              Сіздің өтініміңіз сәтті қабылданды! ТОО СУ ҚҰРЫЛЫС KZ инженерлері сізбен жақын арада хабарласады.
+              {success}
             </p>
-            <button className="btn btn-primary px-5 py-2 fw-bold rounded-pill shadow-sm" onClick={() => setSuccess(false)}>Жабу</button>
+            <button className="btn btn-primary px-5 py-2 fw-bold rounded-pill shadow-sm" onClick={() => setSuccess('')}>Жабу</button>
           </div>
         </div>
       )}
