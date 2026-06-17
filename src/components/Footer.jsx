@@ -33,7 +33,7 @@ const Footer = () => {
               <li><Link to="/services" className="text-slate-light text-decoration-none hover-white">Қызметтер</Link></li>
               <li><Link to="/projects" className="text-slate-light text-decoration-none hover-white">Жобалар</Link></li>
               <li><Link to="/news" className="text-slate-light text-decoration-none hover-white">Жаңалықтар</Link></li>
-              <li><Link to="/admin" className="text-slate-light opacity-50 text-decoration-none mt-3 d-inline-block"><i className="fa-solid fa-lock me-2"></i>Әкімші тақтасы</Link></li>
+
             </ul>
           </div>
           
